@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Lịch Trình Đà Lạt Tối T6 – Tối T2</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --card: #ffffff;
+      --primary: #2d4f3e;
+      --primary-light: #eef5f0;
+      --accent: #d97736;
+      --accent-soft: #fdf3eb;
+      --text: #24292e;
+      --muted: #5f6672;
+      --border: #e5e0d8;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 12px 12px calc(48px + env(safe-area-inset-bottom));
+      font-size: 15px;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2d4f3e 0%, #3d6953 100%);
+      color: #ffffff;
+      padding: 20px 16px;
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(45, 79, 62, 0.14);
+    }
+
+    header h1 {
+      font-size: 1.38rem;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 0.88rem;
+      opacity: 0.92;
+      line-height: 1.45;
+    }
+
+    .stay-pill {
+      display: inline-block;
+      margin-top: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+    }
+
+    .progress-wrap {
+      margin-top: 14px;
+    }
+
+    .progress-box {
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #f4b860;
+      transition: width 0.25s ease;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 7px;
+      font-size: 0.82rem;
+      gap: 8px;
+    }
+
+    .reset-btn {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 99px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      cursor: pointer;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 8px;
+      z-index: 20;
+      background: rgba(246, 244, 239, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 0 10px;
+      margin-bottom: 8px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 99px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.86rem;
+      white-space: nowrap;
+      transition: all 0.18s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 3px 10px rgba(45, 79, 62, 0.18);
+    }
+
+    .day-section {
+      margin-bottom: 28px;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+      padding-left: 10px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .day-title {
+      font-size: 1.14rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .day-route {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: #ebe7df;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-weight: 500;
+    }
+
+    .session-block {
+      margin-bottom: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.6);
+      overflow: hidden;
+    }
+
+    .session-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: left;
+      transition: opacity 0.15s ease;
+    }
+
+    .session-header:hover {
+      opacity: 0.92;
+    }
+
+    .session-morning .session-header {
+      background: #eef6f0;
+      color: #244735;
+      border-bottom: 1px solid #d5e6da;
+    }
+
+    .session-noon .session-header {
+      background: #fef6e7;
+      color: #8a5314;
+      border-bottom: 1px solid #f4e2be;
+    }
+
+    .session-afternoon .session-header {
+      background: #fdf0e8;
+      color: #96451b;
+      border-bottom: 1px solid #f2d5c4;
+    }
+
+    .session-evening .session-header {
+      background: #eceff6;
+      color: #2c3b59;
+      border-bottom: 1px solid #d5dceb;
+    }
+
+    .session-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    .session-body {
+      padding: 12px 12px 2px;
+    }
+
+    .session-block.collapsed .session-body {
+      display: none;
+    }
+
+    .session-block.collapsed .session-header {
+      border-bottom: none;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 18px;
+      border-left: 2px dashed #cbd5e1;
+      margin-left: 6px;
+    }
+
+    .item {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px 13px;
+      margin-bottom: 11px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.025);
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 16px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+
+    .item.done {
+      background: var(--primary-light);
+      border-color: #b7d7c2;
+    }
+
+    .item.done::before {
+      background: var(--primary);
+    }
+
+    .item.done .item-title {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .time {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.73rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .check-pill {
+      font-size: 0.73rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .item.done .check-pill {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .item-title {
+      font-weight: 700;
+      font-size: 0.99rem;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .item-address {
+      font-size: 0.83rem;
+      color: #2d4f3e;
+      background: #f4f7f5;
+      border-left: 3px solid #7ca38f;
+      padding: 5px 9px;
+      border-radius: 0 6px 6px 0;
+      margin: 6px 0;
+      line-height: 1.4;
+    }
+
+    .item-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.48;
+    }
+
+    .item-footer {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 36px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #faf9f6;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.81rem;
+      font-weight: 600;
+    }
+
+    .optional-eats-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 15px 16px;
+      font-size: 0.87rem;
+      color: #14532d;
+      margin-bottom: 14px;
+    }
+
+    .optional-eats-box h3 {
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+      color: #166534;
+    }
+
+    .optional-eats-box p {
+      margin-bottom: 10px;
+      line-height: 1.48;
+      color: #166534;
+    }
+
+    .optional-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .optional-list li {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid #dcfce7;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin-bottom: 8px;
+    }
+
+    .optional-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .optional-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .optional-name {
+      font-weight: 700;
+      color: #14532d;
+    }
+
+    .optional-mini-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #15803d;
+      text-decoration: none;
+      background: #dcfce7;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .optional-addr {
+      font-size: 0.81rem;
+      color: #2d4f3e;
+      margin-bottom: 2px;
+    }
+
+    .optional-desc {
+      font-size: 0.84rem;
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    .sakura-box {
+      background: #fff5f7;
+      border: 1px solid #fecdd3;
+      border-radius: 12px;
+      padding: 15px 16px;
+      font-size: 0.87rem;
+      color: #881337;
+      margin-bottom: 14px;
+    }
+
+    .sakura-box h3 {
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+      color: #9f1239;
+    }
+
+    .sakura-box p {
+      margin-bottom: 8px;
+      line-height: 1.48;
+    }
+
+    .sakura-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .sakura-list li {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid #ffe4e6;
+      border-radius: 9px;
+      padding: 9px 11px;
+      margin-bottom: 8px;
+    }
+
+    .sakura-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .sakura-spot-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .sakura-spot-name {
+      font-weight: 700;
+      color: #9f1239;
+    }
+
+    .sakura-mini-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #be123c;
+      text-decoration: none;
+      background: #ffe4e6;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .sakura-spot-desc {
+      font-size: 0.84rem;
+      color: #4c0519;
+      line-height: 1.45;
+    }
+
+    .note-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.87rem;
+      color: #92400e;
+    }
+
+    .note-box h3 {
+      margin-bottom: 8px;
+      font-size: 0.96rem;
+    }
+
+    .note-box ul {
+      padding-left: 18px;
+    }
+
+    .note-box li {
+      margin-bottom: 5px;
+    }
+
+    @media (min-width: 640px) {
+      body { padding: 22px 18px 60px; }
+      header { padding: 26px 22px; }
+      header h1 { font-size: 1.62rem; }
+      .filters { justify-content: center; overflow-x: visible; }
+      .item { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Lịch Trình Đà Lạt Tối T6 – Tối T2</h1>
+    <div class="stay-pill">🏠 Lưu trú: <strong>Archy Stayin (home)</strong> — 35 Khe Sanh, P.10, Xuân Hương - Đà Lạt</div>
+    <div class="progress-wrap">
+      <div class="progress-box">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-meta">
+        <span id="progressText">Đã hoàn thành: 0 / 30 chặng</span>
+        <button type="button" class="reset-btn" id="resetBtn">Đặt lại tick</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <div class="filters" role="tablist" aria-label="Lọc lịch trình theo ngày">
+      <button type="button" class="filter-btn active" data-filter="all">Tất cả (30)</button>
+      <button type="button" class="filter-btn" data-filter="fri">Tối Thứ 6</button>
+      <button type="button" class="filter-btn" data-filter="sat">Thứ 7</button>
+      <button type="button" class="filter-btn" data-filter="sun">Chủ Nhật</button>
+      <button type="button" class="filter-btn" data-filter="mon">Thứ 2</button>
+    </div>
+  </div>
+
+  <main id="timelineRoot"></main>
+
+  <section class="optional-eats-box" aria-label="Gợi ý thêm 5 quán ăn dự phòng (Optional)">
+    <h3>🍽️ Optional: 5 quán ăn dự phòng / đổi gió</h3>
+    <p>Danh sách 5 lựa chọn linh hoạt để đổi món hoặc ăn thêm khi muốn thay đổi khẩu vị trong chuyến đi:</p>
+    <ul class="optional-list">
+      <li>
+        <div class="optional-head">
+          <span class="optional-name">1. Cháo Hàu Huỳnh Văn</span>
+          <a class="optional-mini-link" href="https://www.google.com/maps/search/?api=1&query=Ch%C3%A1o+H%C3%A0u+Hu%E1%BB%B3nh+V%C4%83n+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="optional-addr">📍 Khu vực trung tâm TP. Đà Lạt</div>
+        <div class="optional-desc">Cháo nóng ngọt thanh nấu cùng hàu tươi, ăn kèm gừng, hành tiêu rất ấm bụng giữa tiết trời se lạnh.</div>
+      </li>
+      <li>
+        <div class="optional-head">
+          <span class="optional-name">2. Bánh Mì Xíu Mại Hoàng Diệu</span>
+          <a class="optional-mini-link" href="https://www.google.com/maps/search/?api=1&query=B%C3%A1nh+m%C3%AC+x%C3%ADu+m%E1%BA%A1i+Ho%C3%A0ng+Di%E1%BB%87u+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="optional-addr">📍 26 Hoàng Diệu, Phường 5, TP. Đà Lạt</div>
+        <div class="optional-desc">Xíu mại mềm đậm đà, nước dùng nóng hổi chấm bánh mì giòn, tiện ăn sáng hoặc lót dạ sớm.</div>
+      </li>
+      <li>
+        <div class="optional-head">
+          <span class="optional-name">3. Bánh Căn A Tý</span>
+          <a class="optional-mini-link" href="https://www.google.com/maps/search/?api=1&query=B%C3%A1nh+C%C4%83n+A+T%C3%BD+06B+Tr%E1%BA%A7n+H%C6%B0ng+%C4%90%E1%BA%A1o+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="optional-addr">📍 06B Trần Hưng Đạo, Phường Xuân Hương - Đà Lạt</div>
+        <div class="optional-desc">Nằm ngay đầu đường Trần Hưng Đạo nối gần Khe Sanh, thuận tiện cho các bữa sáng hoặc chiều nhẹ quanh khu lưu trú.</div>
+      </li>
+      <li>
+        <div class="optional-head">
+          <span class="optional-name">4. Phở Thố Đá Chu Gia</span>
+          <a class="optional-mini-link" href="https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F+Th%E1%BB%91+%C4%90%C3%A1+Chu+Gia+29+Th%C3%B4ng+Thi%C3%AAn+H%E1%BB%8Dc+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="optional-addr">📍 29 Thông Thiên Học, Phường 2, TP. Đà Lạt</div>
+        <div class="optional-desc">Nước phở giữ nóng trong thố đá lâu, thịt bò tươi và bánh phở mềm, hợp đổi món ăn sáng hoặc ăn trưa ấm người.</div>
+      </li>
+      <li>
+        <div class="optional-head">
+          <span class="optional-name">5. Bánh Ướt Lòng Gà Trang</span>
+          <a class="optional-mini-link" href="https://www.google.com/maps/search/?api=1&query=B%C3%A1nh+%C6%B0%E1%BB%9Bt+l%C3%B2ng+g%C3%A0+Trang+15F+T%C4%83ng+B%E1%BA%A1t+H%E1%BB%95+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="optional-addr">📍 15F Tăng Bạt Hổ, Phường 1, TP. Đà Lạt</div>
+        <div class="optional-desc">Món đặc trưng dễ ăn khu trung tâm với bánh ướt mỏng, thịt gà xé và lòng gà trộn nước mắm chua ngọt vừa miệng.</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sakura-box" aria-label="Ghi chú các địa điểm chụp hoa mai anh đào Đà Lạt">
+    <h3>🌸 Ghi chú các địa điểm chụp hoa mai anh đào Đà Lạt (nếu đúng mùa nở)</h3>
+    <p>Khung giờ nắng đẹp nhất để chụp hoa mai anh đào là <strong>07:00 – 09:30 sáng</strong> hoặc <strong>14:00 – 16:00 chiều</strong> (khớp với chặng free style chiều Chủ Nhật và sáng Thứ 2):</p>
+    <ul class="sakura-list">
+      <li>
+        <div class="sakura-spot-head">
+          <span class="sakura-spot-name">1. Tuyến đường Trần Hưng Đạo – Hùng Vương – Khe Sanh (Phường 10)</span>
+          <a class="sakura-mini-link" href="https://www.google.com/maps/search/?api=1&query=%C4%90%C6%B0%E1%BB%9Dng+Tr%E1%BA%A7n+H%C6%B0ng+%C4%90%E1%BA%A1o+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="sakura-spot-desc">Ngay sát homestay <strong>Archy Stayin (35 Khe Sanh)</strong> và trục đường <strong>Khu Biệt Thự</strong>; hai bên vỉa hè có nhiều gốc mai anh đào cổ thụ nở rộ trước các căn biệt thự Pháp cổ.</div>
+      </li>
+      <li>
+        <div class="sakura-spot-head">
+          <span class="sakura-spot-name">2. Dốc Đa Quý – Trại Mát (Xuân Thọ, Đà Lạt)</span>
+          <a class="sakura-mini-link" href="https://www.google.com/maps/search/?api=1&query=D%E1%BB%91c+%C4%90a+Qu%C3%BD+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="sakura-spot-desc">Con dốc nhỏ hai bên phủ kín hàng cây mai anh đào tạo thành đường hầm sắc hồng rất nổi tiếng, thuận tuyến trên đường đi/về hướng Cầu Đất.</div>
+      </li>
+      <li>
+        <div class="sakura-spot-head">
+          <span class="sakura-spot-name">3. Ven bờ Hồ Xuân Hương (Đường Trần Quốc Toản, Phường 1)</span>
+          <a class="sakura-mini-link" href="https://www.google.com/maps/search/?api=1&query=H%E1%BB%93+Xu%C3%A2n+H%C6%B0%C6%A1ng+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="sakura-spot-desc">Đoạn gần nhà hàng Thủy Tạ, Bích Câu và hướng về Vườn hoa Thành phố có nhiều cây nở sát mặt hồ, rất tiện kết hợp khi dạo bộ buổi chiều.</div>
+      </li>
+      <li>
+        <div class="sakura-spot-head">
+          <span class="sakura-spot-name">4. Khu vực Hồ Tuyền Lâm &amp; Đường hầm Điêu Khắc (Phường 4)</span>
+          <a class="sakura-mini-link" href="https://www.google.com/maps/search/?api=1&query=H%E1%BB%93+Tuy%E1%BB%81n+L%C3%A2m+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="sakura-spot-desc">Dọc cung đường ven hồ từ hướng <strong>Be An Coffee</strong> vào sâu bên trong có nhiều cụm hoa anh đào mọc xen giữa rừng thông xanh.</div>
+      </li>
+      <li>
+        <div class="sakura-spot-head">
+          <span class="sakura-spot-name">5. Mộng Đào Nguyên (Lạc Dương – hướng Langbiang)</span>
+          <a class="sakura-mini-link" href="https://www.google.com/maps/search/?api=1&query=M%E1%BB%99ng+%C4%90%C3%A0o+Nguy%C3%AAn+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>
+        </div>
+        <div class="sakura-spot-desc">Rừng hoa mai anh đào tự nhiên trên triền đồi (cách trung tâm ~15km; đường đồi dốc nên ưu tiên đi xe số hoặc xe dịch vụ nếu muốn ghé).</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="note-box">
+    <h3>Mẹo tối ưu cung đường &amp; lưu ý thực tế:</h3>
+    <ul>
+      <li><strong>Từ homestay Archy Stayin (35 Khe Sanh):</strong> Rất gần Ga Đà Lạt, Dinh I và trục đường Trần Hưng Đạo – Hùng Vương, di chuyển xuống trung tâm chỉ mất khoảng 5–10 phút.</li>
+      <li><strong>Sáng Thứ 2 (Bánh cuốn nóng Cô Hóa &rarr; Khu Biệt Thự &rarr; Dốc Nhà Bò):</strong> Các điểm nằm gọn khu trung tâm và vòng cung Phường 10 – Phường 4, đi nối tiếp buổi sáng vắng khách và kịp về trả phòng lúc 12:00.</li>
+      <li><strong>Tối Thứ 7 (Tháp Vinaphone):</strong> Tháp phát sáng đẹp nhất khoảng 19:30 – 21:30, nằm sát Quảng trường Lâm Viên và Hồ Xuân Hương.</li>
+      <li><strong>An toàn tại Dốc Nhà Bò:</strong> Đường dốc cao và hẹp trong khu dân cư, nên gửi xe gọn ở đầu hoặc cuối dốc rồi đi bộ vào chụp ảnh.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+  const HOMESTAY_ADDR = "Archy Stayin (home) – 35 Khe Sanh, Phường 10, Xuân Hương - Đà Lạt";
+  const LAU_BO_MAP_URL = "https://www.google.com/maps/place/L%E1%BA%A9u+B%C3%B2+Qu%C3%A1n+G%E1%BB%97+ABaToa+(Kh%C3%B4ng+Chi+Nh%C3%A1nh)/@11.9413248,108.4294539,3a,75y,90t/data=!3m8!1e2!3m6!1sCIABIhBulLAik7efv_XbhevM5aYn!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fgrass-cs%2FAABkmLffmkqH-cpRVdbjdSc-53te_hrY_UpqQJzoXAdBC0ERsBeYT2WYh0TnN5jnsJrxTZTl84Tnp9gzbqkJApW7ugu2tsuPOq59CI0puOqAdJsviuiZHfjANJIWvWXP_QA9UQ2XxaQeFVXgGjWG%3Dw114-h86-k-no!7i5712!8i4284!4m7!3m6!1s0x3171137e4bc7c4d5:0xd4ec0f828a184c30!8m2!3d11.9413248!4d108.4294539!10e5!16s%2Fg%2F11s5mkplt0?entry=ttu&g_ep=EgoyMDI2MTExOC4xIKXMDSoASAFQAw%3D%3D";
+
+  const ITINERARY = [
+    {
+      day: "fri",
+      title: "Tối Thứ 6: Xuất phát",
+      route: "TP.HCM → Đà Lạt",
+      sessions: [
+        {
+          type: "evening",
+          label: "🌙 Buổi Tối",
+          items: [
+            {
+              id: "1",
+              time: "22:30 – 23:00",
+              tag: "Di chuyển",
+              title: "Lên xe giường nằm đi Đà Lạt",
+              address: "Bến xe Miền Đông Mới / Bến xe Phương Trang (TP. Hồ Chí Minh)",
+              desc: "Chuẩn bị sẵn áo khoác mỏng, khăn cổ và ngủ sớm trên xe để giữ sức cho sáng Thứ 7."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      day: "sat",
+      title: "Thứ 7: Trung tâm – Gà nướng – Bò ABaToa – Tháp Vinaphone",
+      route: "Cung đường nội thành",
+      sessions: [
+        {
+          type: "morning",
+          label: "🌅 Buổi Sáng",
+          items: [
+            {
+              id: "2",
+              time: "06:00 – 07:30",
+              tag: "Gửi đồ & Cà phê",
+              title: "Gửi hành lý tại Archy Stayin & Cà phê sáng Chợ Đà Lạt",
+              address: HOMESTAY_ADDR + " → Chợ Đà Lạt (Nguyễn Thị Minh Khai, P.1)",
+              desc: "Ghé homestay gửi hành lý trước, sau đó ra khu Chợ Đà Lạt nhâm nhi cà phê sáng đón không khí lạnh."
+            },
+            {
+              id: "3",
+              time: "07:30 – 08:30",
+              tag: "Ăn sáng",
+              title: "Ăn sáng món nóng khu trung tâm (Phở / Bánh mì xíu mại)",
+              address: "Bánh mì xíu mại Hoàng Diệu (26 Hoàng Diệu) hoặc Phở Bằng (18 Nguyễn Văn Trỗi, Đà Lạt)",
+              desc: "Ăn sáng nhẹ nhàng ấm bụng trước khi đi tham quan (Bánh căn Cô Hoa để dành cho sáng Chủ Nhật)."
+            },
+            {
+              id: "4",
+              time: "08:45 – 10:00",
+              tag: "Check-in",
+              title: "Tham quan & Check-in Ga Đà Lạt",
+              address: "Số 1 Quang Trung, Phường 10, TP. Đà Lạt",
+              desc: "Chụp ảnh cùng đầu tàu hơi nước cổ và kiến trúc mái chóp tam giác biểu tượng."
+            },
+            {
+              id: "5",
+              time: "10:15 – 11:20",
+              tag: "Check-in",
+              title: "Tham quan Dinh Bảo Đại",
+              address: "Dinh I (01 Trần Quang Diệu, Phường 10) hoặc Dinh III (01 Triệu Việt Vương, Phường 4)",
+              desc: "Dạo khuôn viên rừng thông yên tĩnh và tham quan không gian kiến trúc lịch sử."
+            }
+          ]
+        },
+        {
+          type: "noon",
+          label: "☀️ Buổi Trưa",
+          items: [
+            {
+              id: "6",
+              time: "11:30 – 13:00",
+              tag: "Ăn trưa",
+              title: "Ăn trưa Gà Nướng Cơm Lam",
+              address: "Gà nướng Tam Nguyên (Đường Ankroet) hoặc Hương Rừng (6B Đa Phú, Phường 7, Đà Lạt)",
+              desc: "Thưởng thức gà nướng nguyên con thơm lừng ăn kèm cơm lam dẻo và muối tiêu rừng."
+            },
+            {
+              id: "7",
+              time: "13:00 – 14:30",
+              tag: "Check-in home",
+              title: "Nhận phòng Archy Stayin & Nghỉ trưa",
+              address: HOMESTAY_ADDR,
+              desc: "Nhận phòng, tắm rửa và chợp mắt nghỉ ngơi sau đêm đi xe."
+            }
+          ]
+        },
+        {
+          type: "afternoon",
+          label: "🌤️ Buổi Chiều",
+          items: [
+            {
+              id: "8",
+              time: "15:00 – 16:30",
+              tag: "Cà phê chiều",
+              title: "Đi cà phê chill buổi chiều (nếu còn dư thời gian)",
+              address: "Khu vực đường Khe Sanh – Trần Hưng Đạo – Hùng Vương, Phường 10, Đà Lạt",
+              desc: "Chọn một quán gần homestay để thư giãn, không đi quá xa để kịp giờ ngắm hoàng hôn."
+            },
+            {
+              id: "9",
+              time: "16:45 – 18:15",
+              tag: "Dạo chơi",
+              title: "Đi dạo quanh Hồ Xuân Hương",
+              address: "Đường Trần Quốc Toản, Phường 1, TP. Đà Lạt (Quảng trường Lâm Viên – Hồ Xuân Hương)",
+              desc: "Tản bộ ven hồ đón gió mát và ngắm hoàng hôn buông xuống mặt nước."
+            }
+          ]
+        },
+        {
+          type: "evening",
+          label: "🌙 Buổi Tối",
+          items: [
+            {
+              id: "10",
+              time: "18:30 – 20:00",
+              tag: "Ăn tối",
+              title: "Ăn tối Lẩu Bò Quán Gỗ ABaToa (Không Chi Nhánh)",
+              address: "Lẩu Bò Quán Gỗ ABaToa (Không Chi Nhánh) – Khu Hoàng Diệu, TP. Đà Lạt",
+              mapUrl: LAU_BO_MAP_URL,
+              desc: "Thưởng thức nồi lẩu bò nóng hổi đậm vị giữa tiết trời se lạnh buổi tối."
+            },
+            {
+              id: "11",
+              time: "20:15 – 21:00",
+              tag: "Chụp hình tối",
+              title: "Chụp hình Tháp Vinaphone buổi tối",
+              address: "Tháp viễn thông Lâm Đồng – Đường Trần Phú / Khu vực Quảng trường Lâm Viên, TP. Đà Lạt",
+              desc: "Check-in góc tháp phát sáng rực rỡ giữa bầu trời đêm ngay cạnh khu trung tâm."
+            },
+            {
+              id: "12",
+              time: "21:00 – 22:00",
+              tag: "Dạo đêm",
+              title: "Đi dạo phố đêm & Chợ Âm Phủ",
+              address: "Đường Nguyễn Thị Minh Khai, Phường 1, TP. Đà Lạt",
+              desc: "Ăn bánh tráng nướng, uống sữa đậu nành nóng rồi về ngủ sớm để mai dậy săn mây."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      day: "sun",
+      title: "Chủ Nhật: Săn mây – Bánh căn Cô Hoa – Be An Coffee – Pizza rừng",
+      route: "Cung đường đèo & rừng thông",
+      sessions: [
+        {
+          type: "morning",
+          label: "🌅 Buổi Sáng",
+          items: [
+            {
+              id: "13",
+              time: "04:30 – 07:00",
+              tag: "Trải nghiệm",
+              title: "Đi Săn Mây sáng sớm",
+              address: "Đồi chè Cầu Đất (Xuân Trường, Đà Lạt) hoặc Đồi Đa Phú (Phường 7, Đà Lạt)",
+              desc: "Mặc áo ấm, khăn choàng đầy đủ để đón bình minh và biển mây buổi sớm."
+            },
+            {
+              id: "14",
+              time: "07:15 – 08:15",
+              tag: "Ăn sáng",
+              title: "Ăn sáng Bánh Căn Cô Hoa",
+              address: "Bánh Căn Cô Hoa – Số 12 Phan Đình Phùng, Phường 1, TP. Đà Lạt",
+              desc: "Thưởng thức bánh căn nóng hổi giòn rụm ăn kèm nước mắm xíu mại đậm đà sau buổi sáng săn mây."
+            },
+            {
+              id: "15",
+              time: "08:30 – 09:45",
+              tag: "Chuẩn bị",
+              title: "Về Archy Stayin tắm rửa, nghỉ ngơi & thay đồ",
+              address: HOMESTAY_ADDR,
+              desc: "Nghỉ ngơi thư giãn, thay trang phục đẹp để đi chụp hình cả ngày."
+            },
+            {
+              id: "16",
+              time: "10:00 – 11:45",
+              tag: "Cà phê",
+              title: "Be An Coffee (Hồ Tuyền Lâm)",
+              address: "Be An Coffee – Khu vực Hồ Tuyền Lâm, Phường 4, TP. Đà Lạt",
+              desc: "Ngồi cà phê tại Be An Coffee ven hồ tận hưởng mặt nước phẳng lặng và rừng thông xanh mát."
+            }
+          ]
+        },
+        {
+          type: "noon",
+          label: "☀️ Buổi Trưa",
+          items: [
+            {
+              id: "17",
+              time: "12:00 – 13:45",
+              tag: "Ăn trưa",
+              title: "Ăn trưa Pizza trong rừng",
+              address: "Pizza in the Forest / Khu vực Đèo Prenn – Hồ Tuyền Lâm, Phường 3 & 4, TP. Đà Lạt",
+              desc: "Nằm cùng tuyến đường từ Hồ Tuyền Lâm đi ra nên di chuyển rất gần và thuận tiện."
+            }
+          ]
+        },
+        {
+          type: "afternoon",
+          label: "🌤️ Buổi Chiều",
+          items: [
+            {
+              id: "18",
+              time: "14:00 – 15:00",
+              tag: "Free style / Hoa anh đào",
+              title: "Lịch trình tự do (Free style) hoặc Chụp hoa mai anh đào (nếu đúng mùa)",
+              address: "Đường Trần Hưng Đạo – Đường Hùng Vương – Khu vực 35 Khe Sanh, Phường 10, TP. Đà Lạt",
+              desc: "Đi dạo tự do tùy hứng, ghé chụp ảnh hoa mai anh đào dọc cung đường Trần Hưng Đạo – Hùng Vương – Khe Sanh (xem thêm danh sách điểm chụp hoa ở ghi chú bên dưới) hoặc về thẳng Archy Stayin nghỉ ngơi."
+            },
+            {
+              id: "19",
+              time: "15:15 – 17:15",
+              tag: "Nghỉ ngơi",
+              title: "Về Archy Stayin tắm rửa & chuẩn bị tối đi ăn",
+              address: HOMESTAY_ADDR,
+              desc: "Tắm rửa, nghỉ ngơi lấy sức, thay đồ ấm và sạc đầy pin điện thoại cho buổi tối."
+            }
+          ]
+        },
+        {
+          type: "evening",
+          label: "🌙 Buổi Tối",
+          items: [
+            {
+              id: "20",
+              time: "17:30 – 19:30",
+              tag: "Ăn tối",
+              title: "Ăn tối tại Tiệm Nướng Trạm Dừng Chill",
+              address: "Tiệm Nướng Trạm Dừng Chill, TP. Đà Lạt (nên đặt bàn trước giờ ăn)",
+              desc: "Thưởng thức đồ nướng nóng hổi giữa không khí se lạnh và ánh đèn ấm cúng."
+            },
+            {
+              id: "21",
+              time: "20:00 – 21:30",
+              tag: "Dạo phố",
+              title: "Đi dạo phố đêm tận hưởng không khí Đà Lạt",
+              address: "Khu Hòa Bình – Đường Tăng Bạt Hổ – Trương Công Định, Phường 1, TP. Đà Lạt",
+              desc: "Đi bộ hít thở không khí lạnh, ghé tiệm bánh hoặc quán sữa nóng trước khi về ngủ."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      day: "mon",
+      title: "Thứ 2: Bánh cuốn Cô Hóa – Cà phê bệt – Dốc Nhà Bò – Đôi Đũa – Về SG",
+      route: "Vòng cung biệt thự & về TP.HCM",
+      sessions: [
+        {
+          type: "morning",
+          label: "🌅 Buổi Sáng",
+          items: [
+            {
+              id: "22",
+              time: "07:30 – 08:30",
+              tag: "Ăn sáng",
+              title: "Ăn sáng Bánh Cuốn Nóng Cô Hóa",
+              address: "Bánh Cuốn Nóng Cô Hóa – Khu vực đường Phan Đình Phùng / Trung tâm TP. Đà Lạt",
+              desc: "Thưởng thức dĩa bánh cuốn nóng tráng tay mềm mịn, chả lụa thơm và nước mắm ấm nóng đầu ngày."
+            },
+            {
+              id: "23",
+              time: "08:45 – 10:15",
+              tag: "Cà phê sáng",
+              title: "Đi cà phê bệt Khu Biệt Thự",
+              address: "Khu biệt thự cổ đường Trần Hưng Đạo / Đường Lê Lai, Phường 10 & Phường 5, TP. Đà Lạt",
+              desc: "Ngồi cà phê bệt dưới tán thông và kiến trúc biệt thự Pháp cổ yên bình buổi sáng (có thể kết hợp chụp hoa mai anh đào dọc đường Trần Hưng Đạo nếu đang mùa nở)."
+            },
+            {
+              id: "24",
+              time: "10:30 – 11:30",
+              tag: "Check-in",
+              title: "Check-in Dốc Nhà Bò",
+              address: "Cuối đường Đào Duy Từ, Phường 4, TP. Đà Lạt",
+              desc: "Nằm ngay trục đường từ khu biệt thự vòng về trung tâm; sáng Thứ 2 vắng khách nên chụp ảnh rất đẹp."
+            }
+          ]
+        },
+        {
+          type: "noon",
+          label: "☀️ Buổi Trưa",
+          items: [
+            {
+              id: "25",
+              time: "11:45 – 12:15",
+              tag: "Check-out",
+              title: "Check-out Archy Stayin & Gửi vali",
+              address: HOMESTAY_ADDR,
+              desc: "Trả phòng đúng 12h, gửi gọn vali tại Archy Stayin để thoải mái đi chơi đến tối."
+            },
+            {
+              id: "26",
+              time: "12:15 – 13:45",
+              tag: "Ăn trưa",
+              title: "Ăn trưa tại Quán Đôi Đũa",
+              address: "Quán Đôi Đũa – Số 83 Nguyễn Văn Trỗi, Phường 2, TP. Đà Lạt",
+              desc: "Ngay khu trung tâm sau khi gửi vali, thưởng thức bữa trưa cơm gia đình ấm cúng."
+            }
+          ]
+        },
+        {
+          type: "afternoon",
+          label: "🌤️ Buổi Chiều",
+          items: [
+            {
+              id: "27",
+              time: "14:00 – 15:30",
+              tag: "Cà phê chiều",
+              title: "Đi Cà phê Đương",
+              address: "Cà phê Đương – Khu vực đường Hùng Vương / Phường 11, TP. Đà Lạt",
+              desc: "Thư giãn không gian gỗ mộc mạc buổi chiều cuối cùng tại Đà Lạt."
+            },
+            {
+              id: "28",
+              time: "15:45 – 17:30",
+              tag: "Mua sắm",
+              title: "Ghé Chợ Đà Lạt mua quà",
+              address: "Chợ Đà Lạt – Đường Nguyễn Thị Minh Khai, Phường 1, TP. Đà Lạt",
+              desc: "Mua dâu tây, hồng treo gió, trà atiso, mứt đặc sản đóng thùng mang về."
+            }
+          ]
+        },
+        {
+          type: "evening",
+          label: "🌙 Buổi Tối",
+          items: [
+            {
+              id: "29",
+              time: "18:00 – 20:00",
+              tag: "Ăn tối",
+              title: "Ăn tối nhẹ & Dạo phố",
+              address: "Nem nướng Bà Hùng (328 Phan Đình Phùng) hoặc Bún bò Bàu Sen (Phan Đình Phùng)",
+              desc: "Ăn tối no bụng trước khi lên xe đường dài về lại Sài Gòn."
+            },
+            {
+              id: "30",
+              time: "20:30 – 22:30",
+              tag: "Về Sài Gòn",
+              title: "Lấy vali tại Archy Stayin & Ra bến xe về Sài Gòn",
+              address: HOMESTAY_ADDR + " → Bến xe Liên tỉnh Đà Lạt (01 Tô Hiến Thành, P.3)",
+              desc: "Nhận lại hành lý tại Archy Stayin, ra điểm đón xe giường nằm và ngủ một giấc tới sáng Thứ 3."
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const STORAGE_KEY = "dalat_session_timeline_v13";
+  const COLLAPSE_KEY = "dalat_session_collapse_v13";
+  let savedState = {};
+  let collapsedSessions = {};
+  try {
+    savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") || {};
+    collapsedSessions = JSON.parse(localStorage.getItem(COLLAPSE_KEY) || "{}") || {};
+  } catch (e) {
+    savedState = {};
+    collapsedSessions = {};
+  }
+
+  let currentFilter = "all";
+  const timelineRoot = document.getElementById("timelineRoot");
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+      localStorage.setItem(COLLAPSE_KEY, JSON.stringify(collapsedSessions));
+    } catch (e) {}
+  }
+
+  function getAllItems() {
+    return ITINERARY.flatMap(d => d.sessions.flatMap(s => s.items));
+  }
+
+  function updateProgress() {
+    const allItems = getAllItems();
+    const total = allItems.length;
+    const completed = allItems.filter(it => Boolean(savedState[it.id])).length;
+    const percent = total ? Math.round((completed / total) * 100) : 0;
+    progressBar.style.width = percent + "%";
+    progressText.textContent = `Đã hoàn thành: ${completed} / ${total} chặng (${percent}%)`;
+  }
+
+  function renderTimeline() {
+    timelineRoot.innerHTML = "";
+
+    ITINERARY.forEach(group => {
+      if (currentFilter !== "all" && group.day !== currentFilter) return;
+
+      const section = document.createElement("section");
+      section.className = "day-section";
+
+      const header = document.createElement("div");
+      header.className = "day-header";
+
+      const h2 = document.createElement("h2");
+      h2.className = "day-title";
+      h2.textContent = group.title;
+
+      const route = document.createElement("span");
+      route.className = "day-route";
+      route.textContent = group.route;
+
+      header.appendChild(h2);
+      header.appendChild(route);
+      section.appendChild(header);
+
+      group.sessions.forEach((sess, sIdx) => {
+        const sessKey = `${group.day}-${sess.type}-${sIdx}`;
+        const isCollapsed = Boolean(collapsedSessions[sessKey]);
+        const doneCount = sess.items.filter(it => Boolean(savedState[it.id])).length;
+
+        const block = document.createElement("div");
+        block.className = `session-block session-${sess.type}` + (isCollapsed ? " collapsed" : "");
+
+        const sessHeader = document.createElement("button");
+        sessHeader.type = "button";
+        sessHeader.className = "session-header";
+
+        const labelSpan = document.createElement("span");
+        labelSpan.textContent = sess.label;
+
+        const metaSpan = document.createElement("span");
+        metaSpan.className = "session-meta";
+        metaSpan.textContent = `${doneCount}/${sess.items.length} chặng ${isCollapsed ? "▸" : "▾"}`;
+
+        sessHeader.appendChild(labelSpan);
+        sessHeader.appendChild(metaSpan);
+
+        sessHeader.addEventListener("click", () => {
+          collapsedSessions[sessKey] = !collapsedSessions[sessKey];
+          saveState();
+          renderTimeline();
+        });
+
+        const body = document.createElement("div");
+        body.className = "session-body";
+
+        const list = document.createElement("div");
+        list.className = "timeline";
+
+        sess.items.forEach(item => {
+          const isDone = Boolean(savedState[item.id]);
+
+          const card = document.createElement("article");
+          card.className = "item" + (isDone ? " done" : "");
+
+          const top = document.createElement("div");
+          top.className = "item-top";
+
+          const time = document.createElement("span");
+          time.className = "time";
+          time.textContent = item.time;
+
+          const badges = document.createElement("div");
+          badges.className = "badges";
+
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = item.tag;
+
+          const checkPill = document.createElement("span");
+          checkPill.className = "check-pill";
+          checkPill.textContent = isDone ? "✓ Đã đi" : "Chưa đi";
+
+          badges.appendChild(tag);
+          badges.appendChild(checkPill);
+
+          top.appendChild(time);
+          top.appendChild(badges);
+
+          const title = document.createElement("div");
+          title.className = "item-title";
+          title.textContent = item.title;
+
+          const addr = document.createElement("div");
+          addr.className = "item-address";
+          addr.textContent = "📍 Địa chỉ: " + item.address;
+
+          const desc = document.createElement("div");
+          desc.className = "item-desc";
+          desc.textContent = item.desc;
+
+          const footer = document.createElement("div");
+          footer.className = "item-footer";
+
+          const mapLink = document.createElement("a");
+          mapLink.className = "map-link";
+          mapLink.href = item.mapUrl || ("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.address));
+          mapLink.target = "_blank";
+          mapLink.rel = "noopener noreferrer";
+          mapLink.textContent = "Mở Google Maps ↗";
+          mapLink.addEventListener("click", (e) => {
+            e.stopPropagation();
+          });
+
+          footer.appendChild(mapLink);
+
+          card.appendChild(top);
+          card.appendChild(title);
+          card.appendChild(addr);
+          card.appendChild(desc);
+          card.appendChild(footer);
+
+          card.addEventListener("click", () => {
+            savedState[item.id] = !savedState[item.id];
+            saveState();
+            renderTimeline();
+            updateProgress();
+          });
+
+          list.appendChild(card);
+        });
+
+        body.appendChild(list);
+        block.appendChild(sessHeader);
+        block.appendChild(body);
+        section.appendChild(block);
+      });
+
+      timelineRoot.appendChild(section);
+    });
+  }
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = btn.dataset.filter;
+      renderTimeline();
+    });
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    savedState = {};
+    saveState();
+    renderTimeline();
+    updateProgress();
+  });
+
+  renderTimeline();
+  updateProgress();
+</script>
+
+</body>
+</html>
