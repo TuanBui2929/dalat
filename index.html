@@ -1400,7 +1400,7 @@
       const isLive = weatherDataByDay.sat?.mode === "forecast";
       statusBadge.textContent = isLive
         ? "Dự báo trực tiếp (Open-Meteo)"
-        : "Dữ liệu khí hậu cuối T12 (Open-Meteo)";
+        : "Dữ liệu khí hậu cuối T12";
 
       try {
         localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify({
