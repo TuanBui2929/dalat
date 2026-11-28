@@ -1375,7 +1375,7 @@
         if (cached && cached.ts && (Date.now() - cached.ts < 2 * 60 * 60 * 1000) && cached.days) {
           weatherDataByDay = cached.days;
           const isLive = Object.values(weatherDataByDay)[0]?.mode === "forecast";
-          statusBadge.textContent = isLive ? "Dự báo trực tiếp (Open-Meteo)" : "Tham chiếu mùa 25–28/12 (Open-Meteo)";
+          statusBadge.textContent = isLive ? "Dự báo trực tiếp" : "Tham chiếu mùa 25–28/12";
           renderWeatherSummary();
           renderTimeline();
           return;
